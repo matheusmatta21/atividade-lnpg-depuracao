@@ -5,20 +5,26 @@ class Account:
 
     def deposit(self, amount=0):
         if (
-            type(amount) == int or type(amount) == float and amount > 0
+            type(amount) == int or type(amount) == float
         ):  ## verificacao de tipo para amount ser um numero
-            self.balance += amount
+            if amount <= 0: ## verificacao para amount ser sempre um numero positivo
+                print("Amount must be positive.")
+            else:
+                self.balance += amount
         else:
             print("Invalid type")  ## verificacao/teste com print
 
     def withdraw(self, amount=0):
         if (
-            type(amount) == int or type(amount) == float and amount > 0
+            type(amount) == int or type(amount) == float
         ):  ## verificacao de tipo para amount ser um numero
-            if amount <= self.balance:
-                self.balance -= amount
+            if amount <= 0: ## verificacao para amount ser sempre um numero positivo
+                print("Amount must be positive.")
             else:
-                print("Insufficient funds")
+                if amount <= self.balance:
+                    self.balance -= amount
+                else:
+                    print("Insufficient funds")
         else:
             print("Invalid type")  ## verificacao/teste com print
 
@@ -91,6 +97,8 @@ def main():
 
     # Perform a transfer
     my_bank.transfer(alice_account, bob_account, 300)
+
+    
 
     # Check balances
     print("Alice's balance:", alice_account.get_balance())
